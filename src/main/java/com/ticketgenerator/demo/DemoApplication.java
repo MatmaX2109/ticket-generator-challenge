@@ -10,8 +10,11 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
 
-        StripService stripService = new StripService();
-        stripService.firstStep();
+        for(int i=0;i<10000;i++){
+            System.out.println("i = "+i);
+            StripService stripService = new StripService();
+            stripService.firstStep();
+        }
 
     }
 

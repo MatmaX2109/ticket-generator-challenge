@@ -26,23 +26,12 @@ public class StripService {
             putZeroesOnRaw(t);
         }
 
-        int total=0;
-//        for(int i=0;i<9;i++){
-//            System.out.print(countZeroesOnColumn(strip,i)+ " ");
-//            total+=countZeroesOnColumn(strip,i);
-//        }
-//        System.out.println(total);
         for(int i=0;i<9;i++){
             putZeroesOnLastRaw(strip,i);
         }
-//        System.out.println();
-
-
-
 
         for(int i=0;i<9;i++){
             int countZ = countZeroesOnColumn(strip,i);
-//            System.out.print(countZ+ " ");
             if(countZ != 8){
                 generateStrip();
             }
@@ -52,50 +41,33 @@ public class StripService {
 
     public void putZeroesOnLastRaw(Strip strip, int column){
         int remaining = 8 - countZeroesOnColumn(strip, column);
-        List<Integer> ticketLastRaw = IntStream.range(0,6).boxed().collect(Collectors.toList());
-        Collections.shuffle(ticketLastRaw);
-        ticketLastRaw = ticketLastRaw.subList(0,remaining);
-//        System.out.println("ticketLastRaw: "+ticketLastRaw);
-//        System.out.println("column: "+column);
+        if(remaining > 5){
+            generateStrip();
+        }else {
+            List<Integer> ticketLastRaw = IntStream.range(0, 6).boxed().collect(Collectors.toList());
+            Collections.shuffle(ticketLastRaw);
+            System.out.println(ticketLastRaw);
+            System.out.println(remaining);
+            ticketLastRaw = ticketLastRaw.subList(0, remaining);
 
+            for (int i : ticketLastRaw) {
+                int idTicket = i;
 
-        for(int i : ticketLastRaw){
-            int idTicket = i;
+                int count = 0;
+                while ((countZeroesOnRaw(strip.tickets[idTicket], 2) >= 4 || strip.tickets[idTicket].numbers[2][column] != null) && count <= 25) {
+                    Random rd = new Random();
+                    ;
+                    idTicket = rd.nextInt(6);
+                    count++;
 
-//            List<Integer> test = mapNrZeros(strip);
-//            if(!test.isEmpty()) {
-//                Collections.shuffle(test);
-//                idTicket=test.get(0);
-//            }
-
-//            System.out.println("idTicket 1: "+idTicket);
-//            System.out.println("count: "+countZeroesOnRaw(strip.tickets[idTicket],2));
-
-            int count = 0;
-            while ((countZeroesOnRaw(strip.tickets[idTicket],2) >= 4 || strip.tickets[idTicket].numbers[2][column] != null) && count <= 25){
-                Random rd = new Random();;
-                idTicket = rd.nextInt(6);
-                count++;
-
+                }
+                if (count == 25) {
+                    generateStrip();
+                }else {
+                    strip.tickets[idTicket].numbers[2][column] = 0;
+                }
             }
-            if(count == 25){
-//                System.out.println("count: "+count);
-
-                generateStrip();
-            }
-            strip.tickets[idTicket].numbers[2][column] = 0;
-//            System.out.println("idTicket 2: "+idTicket);
-//            showStrip(strip);
-
-
-//            System.out.println("@");
         }
-
-
-
-//        for(int i : ticketLastRaw){
-//            strip.tickets[i].numbers[2][column] = 0;
-//        }
 
     }
 
