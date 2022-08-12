@@ -10,6 +10,8 @@ import java.util.stream.IntStream;
 public class StripService {
 
     Strip strip = new Strip();
+    Map<Integer, List<Integer>> ranges = new HashMap<>();
+
 
     public void firstStep(){
         generateStrip();
@@ -46,8 +48,8 @@ public class StripService {
         }else {
             List<Integer> ticketLastRaw = IntStream.range(0, 6).boxed().collect(Collectors.toList());
             Collections.shuffle(ticketLastRaw);
-            System.out.println(ticketLastRaw);
-            System.out.println(remaining);
+//            System.out.println(ticketLastRaw);
+//            System.out.println(remaining);
             ticketLastRaw = ticketLastRaw.subList(0, remaining);
 
             for (int i : ticketLastRaw) {
@@ -117,6 +119,15 @@ public class StripService {
         return zeroes;
     }
 
+    public void initRanges(){
+        IntStream.range(1,10).forEach(rangeNumber -> {
+            List<Integer> range = IntStream.range((rangeNumber-1)*10+1, (rangeNumber-1)*10 + 11).boxed().collect(Collectors.toList());
+            Collections.shuffle(range);
+
+            ranges.put(rangeNumber, range);
+        });
+    }
+
 
     public List<Integer> mapNrZeros(Strip strip){
         List<Integer> list = new ArrayList<>();
@@ -150,13 +161,16 @@ public class StripService {
     }
 
     public void showStrip(Strip strip){
+        initRanges();
         for(Ticket t : strip.tickets){
             for(int i=0;i<3;i++){
                 for(int j=0;j<9;j++){
-                    if(t.numbers[i][j] != null){
+                    if(t.numbers[i][j] != null && t.numbers[i][j] == 0){
                         System.out.print(t.numbers[i][j] + " ");
                     }else{
-                        System.out.print("1 ");
+                        int nr = ranges.get(j+1).get(0);
+                        ranges.get(j+1).remove(0);
+                        System.out.print(nr + " ");
 
                     }
                 }
