@@ -13,12 +13,13 @@ public class StripService {
     Map<Integer, List<Integer>> ranges = new HashMap<>();
 
 
-    public void firstStep(){
+    public Strip firstStep(){
         generateStrip();
 
-        System.out.println();
-        showStrip(strip);
-        System.out.println();System.out.println();
+//        System.out.println();
+//        showStrip(strip);
+//        System.out.println();System.out.println();
+        return strip;
     }
 
     public void generateStrip() {
