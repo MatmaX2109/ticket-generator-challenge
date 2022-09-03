@@ -24,13 +24,6 @@ public class DemoApplication {
         ExecutorService executorService = Executors.newFixedThreadPool(8);
         Collection<Future<?>> futures = new LinkedList<Future<?>>();
         for(int i=0;i<10000;i++){
-//            System.out.println("i = "+i);
-
-//            executorService.submit(()->{
-//                StripService stripService = new StripService();
-//                stripList.add(stripService.firstStep());
-//            });
-
             futures.add(executorService.submit(()->{
                 StripService stripService = new StripService();
                 stripList.add(stripService.firstStep());

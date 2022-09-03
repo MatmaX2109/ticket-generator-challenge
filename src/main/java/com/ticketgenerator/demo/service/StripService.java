@@ -15,10 +15,6 @@ public class StripService {
 
     public Strip firstStep(){
         generateStrip();
-
-//        System.out.println();
-//        showStrip(strip);
-//        System.out.println();System.out.println();
         return strip;
     }
 
@@ -49,8 +45,6 @@ public class StripService {
         }else {
             List<Integer> ticketLastRaw = IntStream.range(0, 6).boxed().collect(Collectors.toList());
             Collections.shuffle(ticketLastRaw);
-//            System.out.println(ticketLastRaw);
-//            System.out.println(remaining);
             ticketLastRaw = ticketLastRaw.subList(0, remaining);
 
             for (int i : ticketLastRaw) {
@@ -130,36 +124,36 @@ public class StripService {
     }
 
 
-    public List<Integer> mapNrZeros(Strip strip){
-        List<Integer> list = new ArrayList<>();
-        list.add(0);list.add(0);list.add(0);list.add(0);list.add(0);list.add(0);
-        int ii=0;
-        for(Ticket t : strip.tickets){
-            for(int j=0;j<9;j++){
-                if(t.numbers[2][j] != null && t.numbers[2][j] == 0){
-                    list.set(ii, list.get(ii)==null?1:list.get(ii)+1);
-                }
-            }
-        }
-
-        Integer min = 999;
-        for(Integer value : list){
-            if(min > value){
-                min = value;
-            }
-        }
-
-        List<Integer> pollList = new ArrayList<>();
-
-        for(int i=0; i<6; i++){
-            if(min == list.get(i)){
-                pollList.add(i);
-            }
-        }
-
-        return pollList;
-
-    }
+//    public List<Integer> mapNrZeros(Strip strip){
+//        List<Integer> list = new ArrayList<>();
+//        list.add(0);list.add(0);list.add(0);list.add(0);list.add(0);list.add(0);
+//        int ii=0;
+//        for(Ticket t : strip.tickets){
+//            for(int j=0;j<9;j++){
+//                if(t.numbers[2][j] != null && t.numbers[2][j] == 0){
+//                    list.set(ii, list.get(ii)==null?1:list.get(ii)+1);
+//                }
+//            }
+//        }
+//
+//        Integer min = 999;
+//        for(Integer value : list){
+//            if(min > value){
+//                min = value;
+//            }
+//        }
+//
+//        List<Integer> pollList = new ArrayList<>();
+//
+//        for(int i=0; i<6; i++){
+//            if(min == list.get(i)){
+//                pollList.add(i);
+//            }
+//        }
+//
+//        return pollList;
+//
+//    }
 
     public void showStrip(Strip strip){
         initRanges();
